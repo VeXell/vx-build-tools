@@ -23,8 +23,8 @@ const COMMANDS = {
         `,
     },
     watch: {
-        key: 'watch [mode]',
-        description: 'Webpack watch src directory',
+        key: 'watch',
+        description: 'Webpack watch src directory. Use "watch [mode]"',
     },
     help: {
         key: 'help',
