@@ -46,8 +46,8 @@ switch (myArgs[0]) {
         actionWatch();
         break;
     default:
-        console.log('Unknown command.');
-        actionHelp();
+        log('Unknown command', 'error');
+        actionHelp('gray');
 }
 
 // Action functions
@@ -65,7 +65,7 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('\x1b[36m%s\x1b[0m', 'tsconfig.json already exists');
+            log('tsconfig.json already exists', 'info');
         }
 
         try {
@@ -75,7 +75,7 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('\x1b[36m%s\x1b[0m', '.prettierrc.js already exists');
+            log('.prettierrc.js already exists', 'info');
         }
 
         try {
@@ -85,38 +85,42 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('\x1b[36m%s\x1b[0m', '.eslintrc.js already exists');
+            log('.eslintrc.js already exists', 'info');
         }
     } else {
         console.log(
-            `Sorry, but project already inited. Please remove ${webpackConfigFile} to procced`
+            `Sorry, but project already inited. Please remove ${webpackConfigFile} to procced`,
+            'warn'
         );
     }
 }
 
-function actionHelp() {
+function actionHelp(type) {
     const commandsList = Object.keys(COMMANDS).map((key) => {
         return ` - ${COMMANDS[key].key}: ${COMMANDS[key].description}`;
     });
 
-    console.log(`
+    log(
+        `
 Please use these commands:
 ${commandsList.join(`\n`)}
-`);
+`,
+        type
+    );
 }
 
 async function actionBuild() {
     const mode = myArgs[1];
 
     if (!mode) {
-        console.error('\x1b[41m%s\x1b[0m', 'Please specify working config mode');
+        log('Please specify working config mode', 'error');
         process.exit(1);
     }
 
     const isWebpackConfigExist = await exists(webpackConfigFile);
 
     if (!isWebpackConfigExist) {
-        console.error('\x1b[41m%s\x1b[0m', 'Webpack config file does not exists');
+        log('Webpack config file does not exists', 'error');
         process.exit(1);
     }
 
@@ -130,9 +134,8 @@ async function actionBuild() {
     const compiler = webpack(webpackConfig);
 
     const outputBuildDir = webpackConfig.output.path;
-    // const outputFileName = webpackConfig.output.filename;
 
-    console.log(`Start build project to dir "${outputBuildDir}" ...`);
+    log(`Start build project to dir "${outputBuildDir}" ...`, 'info');
 
     compiler.run((err, stats) => {
         if (err) {
@@ -156,7 +159,7 @@ async function actionBuild() {
     const hasCopyNodeModulesFlag = myArgs.find((entry) => entry === '--copy-node-modules');
 
     if (hasCopyNodeModulesFlag) {
-        console.log(`Run copy node_modules to ${outputBuildDir}`);
+        log(`Run copy node_modules to ${outputBuildDir}`, 'info');
         copyNodeDirs([PROJECT_DIR], outputBuildDir);
     }
 }
@@ -165,14 +168,14 @@ async function actionWatch() {
     const mode = myArgs[1];
 
     if (!mode) {
-        console.error('\x1b[41m%s\x1b[0m', 'Please specify working config mode');
+        log('Please specify working config mode', 'error');
         process.exit(1);
     }
 
     const isWebpackConfigExist = await exists(webpackConfigFile);
 
     if (!isWebpackConfigExist) {
-        console.error('\x1b[41m%s\x1b[0m', 'Webpack config file does not exists');
+        log('Webpack config file does not exists', 'error');
         process.exit(1);
     }
 
@@ -185,7 +188,7 @@ async function actionWatch() {
 
     const compiler = webpack(webpackConfig);
 
-    console.log(`Start watching files ...`);
+    log(`Start watching files ...`, 'info');
 
     compiler.watch(
         {
@@ -216,5 +219,27 @@ async function exists(path) {
         return true;
     } catch {
         return false;
+    }
+}
+
+function log(str, type) {
+    switch (type) {
+        case 'ok':
+            console.log('\x1b[32m%s\x1b[0m', str);
+            break;
+        case 'error':
+            console.log('\x1b[41m%s\x1b[0m', str);
+            break;
+        case 'info':
+            console.log('\x1b[36m%s\x1b[0m', str);
+            break;
+        case 'warn':
+            console.log('\x1b[33m%s\x1b[0m', str);
+            break;
+        case 'gray':
+            console.log('\x1b[2m%s\x1b[0m', str);
+            break;
+        default:
+            console.log(str);
     }
 }
