@@ -7,7 +7,7 @@ require('dotenv').config();
 const currentDir = path.resolve(__dirname, './');
 process.env.CURRENT_DIR = currentDir;
 
-const { mode, requireFile } = require('./node_modules/vebuildtools/config/webpack/bootstrap');
+const { mode, requireFile } = require('vebuildtools/config/webpack/bootstrap');
 
 const webpack = () => {
     // eslint-disable-next-line no-console
