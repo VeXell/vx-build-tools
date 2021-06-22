@@ -6,13 +6,19 @@ Boilerplate code package to simplify build new projects on typescript. All impor
 
 First you should add this repo into you project. At this moment it supports onlu git+ssh npm install:
 
-`npm i git+ssh://git@github.com/VeXell/build-tools.git --save-dev`
+```bash
+npm i git+ssh://git@github.com/VeXell/build-tools.git --save-dev
+```
 
 Then you can init new project. This command create `eslint`, `typescript`, `prettier` and `webpack` config files.
 
-`npx vxbuildscripts init`
+```bash
+npx vxbuildscripts init
+```
 
 Also you should add new few commands in your `package.json` file. For example:
+
+**Example**
 
 ```
 ...
