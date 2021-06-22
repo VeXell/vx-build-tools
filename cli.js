@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const copyNodeDirs = require('./scripts/copy-dependencies');
 const myArgs = process.argv.slice(2);
 
 const PROJECT_DIR = process.cwd();
@@ -138,9 +139,7 @@ async function startBuild() {
             console.log(err);
         } else {
             console.log(
-                `Build time: ${msToTime(
-                    stats.compilation.endTime - stats.compilation.startTime
-                )} sec`
+                `Build time: ${msToTime(stats.compilation.endTime - stats.compilation.startTime)}`
             );
         }
 
@@ -155,6 +154,7 @@ async function startBuild() {
 
     if (hasCopyNodeModulesFlag) {
         console.log(`Run copy node_modules to ${outputBuildDir}`);
+        copyNodeDirs([PROJECT_DIR], outputBuildDir);
     }
 }
 

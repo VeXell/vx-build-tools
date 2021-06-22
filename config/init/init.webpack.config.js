@@ -8,8 +8,7 @@ process.env.CURRENT_DIR = currentDir;
 const { mode, requireFile } = require('vebuildtools/config/webpack/bootstrap');
 
 const webpack = () => {
-    // eslint-disable-next-line no-console
-    console.log(`👉 Running special project in "${mode}" mode using ${requireFile} 🛠️`);
+    console.log(`👉 Running project in "${mode}" mode using ${requireFile} 🛠️`);
     const config = require(requireFile)();
 
     config.context = currentDir;
