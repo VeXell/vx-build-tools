@@ -9,8 +9,8 @@ const resolveLoader = require('../resolve-loader.js');
 const rulesConfig = require('../rules');
 const { IS_DEVELOPMENT } = require('../config');
 
-module.exports = appConfig => {
-    const rules = rulesConfig('client', appConfig);
+module.exports = (appConfig) => {
+    const rules = rulesConfig(process.env.CONFIG_TYPE, appConfig);
 
     const plugins = [
         // Removes/cleans build folders and unused assets when rebuilding.

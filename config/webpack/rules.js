@@ -54,25 +54,12 @@ function getCssLoaders(
     return rules;
 }
 
-function getConfig(type = 'client', appConfig) {
+function getConfig(type = 'client', appConfig = {}) {
     const IS_SERVER = Boolean(type === 'server');
-    const rules = [
-        {
-            oneOf: [
-                {
-                    test: /\.scss$/,
-                    use: getCssLoaders(IS_SERVER, {}, appConfig),
-                },
-                {
-                    test: /\.global\.scss$/,
-                    use: getCssLoaders(IS_SERVER, { isModule: false }, appConfig),
-                },
-                {
-                    test: /\.css$/,
-                    use: getCssLoaders(IS_SERVER, { isSass: false, isModule: false }, appConfig),
-                },
-            ],
-        },
+    const IS_CLIENT = Boolean(type === 'client');
+
+    // Basic rules
+    let rules = [
         {
             test: /\.(js|jsx)$/,
             exclude: /(node_modules)/,
@@ -114,72 +101,101 @@ function getConfig(type = 'client', appConfig) {
                 },
             ],
         },
-        {
-            test: /\.svg$/,
-            use: [
-                {
-                    loader: 'babel-loader',
-                    options: {},
-                },
-                {
-                    loader: 'react-svg-loader',
-                    options: {
-                        svgo: {
-                            plugins: [
-                                { removeTitle: false },
-                                { cleanupIDs: false },
-                                { cleanupAttrs: false },
-                                { collapseGroups: false },
-                                { mergePaths: false },
-                                { minifyStyles: false },
-                                { moveElemsAttrsToGroup: false },
-                                { moveGroupAttrsToElems: false },
-                                { removeDimensions: false },
-                                { convertShapeToPath: false },
-                                { collapseGroups: false },
-                                { inlineStyles: false },
-                                { removeStyleElement: false },
-                                { removeHiddenElems: false },
-                                { convertPathData: false },
-                                { convertStyleToAttrs: false },
-                                { convertTransform: false },
-                                { removeViewBox: false },
-                            ],
-                            floatPrecision: 2,
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3)$/i,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        name: `${FILES_RULE_NAME}.[ext]`,
-                        context: join(commonPaths.root, 'src'),
-                        outputPath: commonPaths.imagesFolder,
-                        emitFile: !IS_SERVER,
-                    },
-                },
-            ],
-        },
-        {
-            test: /\.(woff2|ttf|woff|eot)$/,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        name: `${FILES_RULE_NAME}.[ext]`,
-                        context: join(commonPaths.root, 'src'),
-                        outputPath: commonPaths.fontsFolder,
-                        emitFile: !IS_SERVER,
-                    },
-                },
-            ],
-        },
     ];
+
+    // Additional rules
+    if (IS_CLIENT || IS_SERVER) {
+        rules = [
+            ...rules,
+            ...[
+                {
+                    oneOf: [
+                        {
+                            test: /\.scss$/,
+                            use: getCssLoaders(IS_SERVER, {}, appConfig),
+                        },
+                        {
+                            test: /\.global\.scss$/,
+                            use: getCssLoaders(IS_SERVER, { isModule: false }, appConfig),
+                        },
+                        {
+                            test: /\.css$/,
+                            use: getCssLoaders(
+                                IS_SERVER,
+                                { isSass: false, isModule: false },
+                                appConfig
+                            ),
+                        },
+                    ],
+                },
+                {
+                    test: /\.svg$/,
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            options: {},
+                        },
+                        {
+                            loader: 'react-svg-loader',
+                            options: {
+                                svgo: {
+                                    plugins: [
+                                        { removeTitle: false },
+                                        { cleanupIDs: false },
+                                        { cleanupAttrs: false },
+                                        { collapseGroups: false },
+                                        { mergePaths: false },
+                                        { minifyStyles: false },
+                                        { moveElemsAttrsToGroup: false },
+                                        { moveGroupAttrsToElems: false },
+                                        { removeDimensions: false },
+                                        { convertShapeToPath: false },
+                                        { collapseGroups: false },
+                                        { inlineStyles: false },
+                                        { removeStyleElement: false },
+                                        { removeHiddenElems: false },
+                                        { convertPathData: false },
+                                        { convertStyleToAttrs: false },
+                                        { convertTransform: false },
+                                        { removeViewBox: false },
+                                    ],
+                                    floatPrecision: 2,
+                                },
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: `${FILES_RULE_NAME}.[ext]`,
+                                context: join(commonPaths.root, 'src'),
+                                outputPath: commonPaths.imagesFolder,
+                                emitFile: !IS_SERVER,
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.(woff2|ttf|woff|eot)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: `${FILES_RULE_NAME}.[ext]`,
+                                context: join(commonPaths.root, 'src'),
+                                outputPath: commonPaths.fontsFolder,
+                                emitFile: !IS_SERVER,
+                            },
+                        },
+                    ],
+                },
+            ],
+        ];
+    }
 
     return rules;
 }

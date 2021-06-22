@@ -13,7 +13,7 @@ const outputPath = IS_PRODUCTION ? commonPaths.buildServer : commonPaths.devServ
 const bundleName = `[name].js`;
 
 module.exports = (appConfig) => {
-    const rules = rulesConfig('server', appConfig);
+    const rules = rulesConfig(process.env.CONFIG_TYPE, appConfig);
 
     return {
         mode: 'production',

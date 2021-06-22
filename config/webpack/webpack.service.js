@@ -5,12 +5,14 @@ const { DefinePlugin } = require('webpack');
 const { IS_DEVELOPMENT, IS_PRODUCTION } = require('./config');
 
 const { buildDir, devDir } = require('./paths');
-const rules = require('./rules');
+const rulesConfig = require('./rules');
 
 const outputPath = IS_PRODUCTION ? buildDir : devDir;
 const bundleName = `[name].js`;
 
 module.exports = () => {
+    const rules = rulesConfig(process.env.CONFIG_TYPE);
+
     return {
         mode: IS_DEVELOPMENT ? 'development' : 'production',
         entry: ['./src/env', './src/index'],
