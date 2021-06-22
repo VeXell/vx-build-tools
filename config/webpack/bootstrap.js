@@ -18,6 +18,7 @@ const requireFile = `${webpackDir}/webpack.${configType}.js`;
 try {
     fs.existsSync(requireFile);
 } catch (err) {
+    console.log(err);
     // eslint-disable-next-line no-console
     console.error(`CONFIG_TYPE "${configType}" does not exists. Request file ${requireFile}`);
     process.exit(1);
