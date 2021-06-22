@@ -131,14 +131,16 @@ async function startBuild() {
     const outputBuildDir = webpackConfig.output.path;
     // const outputFileName = webpackConfig.output.filename;
 
-    console.log(`Start build project to dir ${outputBuildDir}...`);
+    console.log(`Start build project to dir "${outputBuildDir}" ...`);
 
     compiler.run((err, stats) => {
         if (err) {
             console.log(err);
         } else {
             console.log(
-                `Build time: ${stats.compilation.endTime - stats.compilation.startTime}sec`
+                `Build time: ${msToTime(
+                    stats.compilation.endTime - stats.compilation.startTime
+                )} sec`
             );
         }
 
@@ -154,4 +156,14 @@ async function startBuild() {
     if (hasCopyNodeModulesFlag) {
         console.log(`Run copy node_modules to ${outputBuildDir}`);
     }
+}
+
+function msToTime(duration) {
+    let seconds = Math.floor((duration / 1000) % 60);
+    let minutes = Math.floor((duration / (1000 * 60)) % 60);
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    return minutes + ':' + seconds;
 }
