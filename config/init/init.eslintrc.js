@@ -1,6 +1,6 @@
 module.exports = {
     root: true,
-    extends: [require.resolve('vebuildtools/config/eslint/base.eslintrc')],
+    extends: [require.resolve('vxbuildtools/config/eslint/base.eslintrc')],
     env: {
         // "browser" rowser was set to false in order to allow only certain browser
         // globals though "globals" config.

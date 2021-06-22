@@ -1,5 +1,5 @@
 {
-    "name": "vebuildtools",
+    "name": "vxbuildtools",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -60,6 +60,6 @@
         "webpack-node-externals": "^3.0.0"
     },
     "bin": {
-        "vebuildtools": "./cli.js"
+        "vxbuildtools": "./cli.js"
     }
 }
