@@ -5,7 +5,7 @@ const myArgs = process.argv.slice(2);
 
 const PROJECT_DIR = process.cwd();
 const INIT_DIR = path.resolve(__dirname, `./config/init`);
-const { promises: Fs } = require('fs');
+const { promises: Fs, constants } = require('fs');
 
 async function exists(path) {
     try {
@@ -49,8 +49,26 @@ async function tryCopyInitFiles() {
 
     if (!isInited) {
         await Fs.copyFile(`${INIT_DIR}/init.webpack.config.js`, webpackConfigFile);
-        await Fs.copyFile(`${INIT_DIR}/init.tsconfig.json`, `${PROJECT_DIR}/tsconfig.json`);
-        await Fs.copyFile(`${INIT_DIR}/init.prettierrc.js`, `${PROJECT_DIR}/.prettierrc.js`);
+
+        try {
+            await Fs.copyFile(
+                `${INIT_DIR}/init.tsconfig.json`,
+                `${PROJECT_DIR}/tsconfig.json`,
+                constants.COPYFILE_EXCL
+            );
+        } catch {
+            console.log('tsconfig.json already exists. Skip copy');
+        }
+
+        try {
+            await Fs.copyFile(
+                `${INIT_DIR}/init.prettierrc.js`,
+                `${PROJECT_DIR}/.prettierrc.js`,
+                constants.COPYFILE_EXCL
+            );
+        } catch {
+            console.log('.prettierrc.js already exists. Skip copy');
+        }
     } else {
         console.log(
             `Sorry, but project already inited. Please remove ${webpackConfigFile} to procced`
