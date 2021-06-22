@@ -60,5 +60,8 @@
     },
     "bin": {
         "vxbuildtools": "./cli.js"
+    },
+    "engines": {
+        "node": ">=14.17"
     }
 }
