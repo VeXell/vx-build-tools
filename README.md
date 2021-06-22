@@ -34,6 +34,8 @@ Also you should add new few commands in your `package.json` file. For example:
 ...
 ```
 
+## Available configs
+
 `vxbuildtools` supports 3 different types of apps:
 
 -   `client` - if you want to build SPA application on react
