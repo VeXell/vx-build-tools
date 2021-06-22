@@ -50,6 +50,7 @@ async function tryCopyInitFiles() {
     if (!isInited) {
         await Fs.copyFile(`${INIT_DIR}/init.webpack.config.js`, webpackConfigFile);
         await Fs.copyFile(`${INIT_DIR}/init.tsconfig.json`, `${PROJECT_DIR}/tsconfig.json`);
+        await Fs.copyFile(`${INIT_DIR}/init.prettierrc.js`, `${PROJECT_DIR}/.prettierrc.js`);
     } else {
         console.log(
             `Sorry, but project already inited. Please remove ${webpackConfigFile} to procced`
