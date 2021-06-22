@@ -49,4 +49,4 @@ Your development working files should be located in `./src` directory.
 -   `vxbuildtools build [config-type] [...options]` - This command build your project with spicific config type. For `server` and `service` config please use option `--copy-node-modules` it copy your `node_modules` dependencies in build folder (`devDependencies` would be skipped)
 -   `vxbuildtools watch [config-type]` - This command run development mode and watch files in `./dev` directory. It uses `nodemon` to restart app after changes.
 
-Do not forget to add `./build` and `./dev` folders to `.gitignore`
+**Remark:** Do not forget to add `./build` and `./dev` folders to `.gitignore`
