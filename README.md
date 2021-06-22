@@ -44,7 +44,7 @@ Also you should add new few commands in your `package.json` file. For example:
 
 Every type of the apps has own configured webpack config. For more information you can run help command `npx vxbuildtools help`
 
-Your development working files should be located in `./src` directory.
+Your development working files should be located in `./src` directory. Entry point is `index.ts`
 
 ## Commands
 

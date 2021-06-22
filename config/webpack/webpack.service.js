@@ -5,7 +5,7 @@ const { DefinePlugin } = require('webpack');
 
 const { IS_DEVELOPMENT, IS_PRODUCTION } = require('./config');
 
-const { buildDir, devDir, src, envPath, entryPath } = require('./paths');
+const { buildDir, devDir, src, entryPath } = require('./paths');
 const rulesConfig = require('./rules');
 
 const outputPath = IS_PRODUCTION ? buildDir : devDir;
@@ -16,7 +16,7 @@ module.exports = () => {
 
     return {
         mode: IS_DEVELOPMENT ? 'development' : 'production',
-        entry: [envPath, entryPath],
+        entry: [entryPath],
         target: 'node',
         node: {
             __dirname: false,
