@@ -6,13 +6,14 @@ const copyDir = (sourceDirs, destinationDir) => {
 
     if (!folder) {
         // eslint-disable-next-line no-console
-        console.error('\nCopy node dependencies for server done');
+        console.log('\x1b[32m%s\x1b[0m', 'Copy node dependencies for server done');
+        console.log('');
         return;
     }
 
     copyNodeModules(folder, destinationDir, { devDependencies: false }, (err, results) => {
         // eslint-disable-next-line no-console
-        console.log(`\nProcess folder ${folder}`);
+        console.log(`Process folder ${folder}`);
 
         if (err) {
             // eslint-disable-next-line no-console
@@ -48,7 +49,7 @@ if (require.main === module) {
     const srcDir = [path.resolve(projectDir, `./`)];
     const dirs = [...srcDir];
 
-    console.log(`Copy dependencies for server. Project direcory ${projectDir}`);
+    console.log(`Copy dependencies for server. Project directory ${projectDir}`);
     copyDir(dirs, dstDir);
 }
 
