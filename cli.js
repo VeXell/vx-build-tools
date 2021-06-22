@@ -10,15 +10,6 @@ const INIT_DIR = path.resolve(__dirname, `./config/init`);
 const { promises: Fs, constants } = require('fs');
 const webpackConfigFile = `${PROJECT_DIR}/webpack.config.js`;
 
-async function exists(path) {
-    try {
-        await Fs.access(path);
-        return true;
-    } catch {
-        return false;
-    }
-}
-
 const COMMANDS = {
     init: {
         key: 'init',
@@ -31,6 +22,10 @@ const COMMANDS = {
            --copy-node-modules: Copy build dependencies node_modules. Use only for projects run with nodejs
         `,
     },
+    watch: {
+        key: 'watch [mode]',
+        description: 'Webpack watch src directory',
+    },
     help: {
         key: 'help',
         description: 'Print help information',
@@ -39,20 +34,25 @@ const COMMANDS = {
 
 switch (myArgs[0]) {
     case COMMANDS.init.key:
-        tryCopyInitFiles();
+        actionInitFiles();
         break;
     case COMMANDS.help.key:
-        printHelp();
+        actionHelp();
         break;
     case COMMANDS.build.key:
-        startBuild();
+        actionBuild();
+        break;
+    case COMMANDS.watch.key:
+        actionWatch();
         break;
     default:
         console.log('Unknown command.');
-        printHelp();
+        actionHelp();
 }
 
-async function tryCopyInitFiles() {
+// Action functions
+
+async function actionInitFiles() {
     const isInited = await exists(webpackConfigFile);
 
     if (!isInited) {
@@ -94,7 +94,7 @@ async function tryCopyInitFiles() {
     }
 }
 
-function printHelp() {
+function actionHelp() {
     const commandsList = Object.keys(COMMANDS).map((key) => {
         return ` - ${COMMANDS[key].key}: ${COMMANDS[key].description}`;
     });
@@ -105,11 +105,11 @@ ${commandsList.join(`\n`)}
 `);
 }
 
-async function startBuild() {
+async function actionBuild() {
     const mode = myArgs[1];
 
     if (!mode) {
-        console.error('Please specify build mode');
+        console.error('Please specify working config mode');
         process.exit(1);
     }
 
@@ -139,6 +139,13 @@ async function startBuild() {
             console.log(err);
         } else {
             console.log(
+                stats.toString({
+                    chunks: false,
+                    colors: true,
+                })
+            );
+
+            console.log(
                 `Build time: ${msToTime(stats.compilation.endTime - stats.compilation.startTime)}`
             );
         }
@@ -155,6 +162,64 @@ async function startBuild() {
     if (hasCopyNodeModulesFlag) {
         console.log(`Run copy node_modules to ${outputBuildDir}`);
         copyNodeDirs([PROJECT_DIR], outputBuildDir);
+    }
+}
+
+async function actionWatch() {
+    const mode = myArgs[1];
+
+    if (!mode) {
+        console.error('Please specify working config mode');
+        process.exit(1);
+    }
+
+    const isWebpackConfigExist = await exists(webpackConfigFile);
+
+    if (!isWebpackConfigExist) {
+        console.error('Webpack config file does not exists');
+        process.exit(1);
+    }
+
+    // Set environment variables
+    process.env.NODE_ENV = 'development';
+    process.env.CONFIG_TYPE = mode;
+
+    const getWebpackConfig = require(webpackConfigFile);
+    const webpackConfig = getWebpackConfig();
+
+    const compiler = webpack(webpackConfig);
+
+    console.log(`Start watching files ...`);
+
+    compiler.watch(
+        {
+            aggregateTimeout: 300,
+            poll: undefined,
+            ignored: /node_modules/,
+        },
+        (err, stats) => {
+            if (err) {
+                console.log(err);
+            }
+
+            console.log(
+                stats.toString({
+                    chunks: false,
+                    colors: true,
+                })
+            );
+        }
+    );
+}
+
+// Help functions
+
+async function exists(path) {
+    try {
+        await Fs.access(path);
+        return true;
+    } catch {
+        return false;
     }
 }
 
