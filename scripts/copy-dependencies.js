@@ -36,12 +36,12 @@ if (require.main === module) {
     const dstDir = args[1];
 
     if (!projectDir) {
-        console.error('Please provide project directory');
+        console.error('\x1b[41m%s\x1b[0m', 'Please provide project directory');
         process.exit(1);
     }
 
     if (!dstDir) {
-        console.error('Please provide destination directory');
+        console.error('\x1b[41m%s\x1b[0m', 'Please provide destination directory');
         process.exit(1);
     }
 
@@ -49,7 +49,11 @@ if (require.main === module) {
     const srcDir = [path.resolve(projectDir, `./`)];
     const dirs = [...srcDir];
 
-    console.log(`Copy dependencies for server. Project directory ${projectDir}`);
+    console.log(
+        '\x1b[36m%s\x1b[0m',
+        `Copy dependencies for server. Project directory ${projectDir}`
+    );
+
     copyDir(dirs, dstDir);
 }
 

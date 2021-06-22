@@ -65,7 +65,7 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('%c tsconfig.json already exists', 'color: #bada55');
+            console.log('\x1b[36m%s\x1b[0m', 'tsconfig.json already exists');
         }
 
         try {
@@ -75,7 +75,7 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('%c .prettierrc.js already exists', 'color: #bada55');
+            console.log('\x1b[36m%s\x1b[0m', '.prettierrc.js already exists');
         }
 
         try {
@@ -85,7 +85,7 @@ async function actionInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('%c .eslintrc.js already exists', 'color: #bada55');
+            console.log('\x1b[36m%s\x1b[0m', '.eslintrc.js already exists');
         }
     } else {
         console.log(
@@ -109,14 +109,14 @@ async function actionBuild() {
     const mode = myArgs[1];
 
     if (!mode) {
-        console.error('Please specify working config mode');
+        console.error('\x1b[41m%s\x1b[0m', 'Please specify working config mode');
         process.exit(1);
     }
 
     const isWebpackConfigExist = await exists(webpackConfigFile);
 
     if (!isWebpackConfigExist) {
-        console.error('Webpack config file does not exists');
+        console.error('\x1b[41m%s\x1b[0m', 'Webpack config file does not exists');
         process.exit(1);
     }
 
@@ -165,14 +165,14 @@ async function actionWatch() {
     const mode = myArgs[1];
 
     if (!mode) {
-        console.error('Please specify working config mode');
+        console.error('\x1b[41m%s\x1b[0m', 'Please specify working config mode');
         process.exit(1);
     }
 
     const isWebpackConfigExist = await exists(webpackConfigFile);
 
     if (!isWebpackConfigExist) {
-        console.error('Webpack config file does not exists');
+        console.error('\x1b[41m%s\x1b[0m', 'Webpack config file does not exists');
         process.exit(1);
     }
 
