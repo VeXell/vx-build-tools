@@ -3,7 +3,6 @@ const path = require('path');
 
 const args = process.argv.slice(2);
 const projectDir = args[0];
-const onlyProjectDir = args[1];
 
 if (!projectDir) {
     console.error('Please provide project directory');
@@ -13,15 +12,7 @@ if (!projectDir) {
 console.log(`Copy dependencies for server. Project direcory ${projectDir}`);
 
 // Copy dependencies
-const srcDir = [];
-
-if (onlyProjectDir === 'only-project') {
-    srcDir.push(path.resolve(projectDir, `./`));
-} else {
-    srcDir.push(path.resolve(projectDir, `../`));
-    srcDir.push(path.resolve(projectDir, `./`));
-}
-
+const srcDir = [path.resolve(projectDir, `./`)];
 const dstDir = './build/server/';
 
 const dirs = [...srcDir];
@@ -45,7 +36,7 @@ const copyDir = () => {
             return;
         }
 
-        results.forEach(entry => {
+        results.forEach((entry) => {
             // eslint-disable-next-line no-console
             console.log(`Copy package name: ${entry.name}, version: ${entry.version}`);
         });
