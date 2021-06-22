@@ -5,7 +5,7 @@ module.exports = {
         es2021: true,
         node: true,
     },
-    extends: ['standard', 'eslint:recommended'],
+    extends: ['standard', 'eslint:recommended', 'prettier'],
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
@@ -16,7 +16,7 @@ module.exports = {
         semi: ['error', 'always'],
         'comma-dangle': 'off',
         quotes: ['error', 'single', { allowTemplateLiterals: true }],
-        'space-before-function-paren': ['error', 'never']
+        'space-before-function-paren': ['error', 'never'],
     },
     overrides: [],
 };

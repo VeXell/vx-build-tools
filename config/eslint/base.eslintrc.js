@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: ['standard', 'eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    extends: ['standard', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 12,
@@ -15,7 +15,7 @@ module.exports = {
         semi: ['error', 'always'],
         'comma-dangle': 'off',
         quotes: ['error', 'single', { allowTemplateLiterals: true }],
-        'space-before-function-paren': ['error', 'never']
+        'space-before-function-paren': ['error', 'never'],
     },
     overrides: [
         {

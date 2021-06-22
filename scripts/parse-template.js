@@ -36,17 +36,17 @@ const cacheDirs = {};
 
 const IMAGE_REGEXP = '/(.*).[0-9a-f]{20}.[a-zA-Z0-9_-]+$/';
 
-const parseImageLink = imageLink => {
+const parseImageLink = (imageLink) => {
     const fileData = path.parse(imageLink);
     const findDir = path.resolve(clientBuildDir, `.${fileData.dir}`);
 
     if (!cacheDirs[findDir]) {
-        cacheDirs[findDir] = fs.readdirSync(findDir).map(file => file);
+        cacheDirs[findDir] = fs.readdirSync(findDir).map((file) => file);
     }
 
     const regExp = `${fileData.name}.[0-9a-f]{20}${fileData.ext}$`;
 
-    const realFile = cacheDirs[findDir].find(file => new RegExp(regExp).test(file));
+    const realFile = cacheDirs[findDir].find((file) => new RegExp(regExp).test(file));
 
     if (realFile) {
         return `${fileData.dir}/${realFile}`;
@@ -66,11 +66,11 @@ fs.readFile(indexFile, 'utf8', (err, data) => {
 
     const html = parse(data, { script: true, style: true });
 
-    parsedData.script = html.querySelectorAll('script').map(script => {
+    parsedData.script = html.querySelectorAll('script').map((script) => {
         return script.toString();
     });
 
-    html.querySelectorAll('meta').forEach(meta => {
+    html.querySelectorAll('meta').forEach((meta) => {
         if (meta.attributes.property) {
             switch (meta.attributes.property) {
                 case 'og:image':
@@ -94,7 +94,7 @@ fs.readFile(indexFile, 'utf8', (err, data) => {
         parsedData.meta.push(meta.toString());
     });
 
-    html.querySelectorAll('link').forEach(link => {
+    html.querySelectorAll('link').forEach((link) => {
         if (link.attributes.rel) {
             switch (link.attributes.rel) {
                 case 'stylesheet':
