@@ -25,7 +25,10 @@ const COMMANDS = {
     },
     build: {
         key: 'build',
-        description: 'Build project with specific mode. Use "build [mode] [options]"',
+        description: `Build project with specific mode. Use "build [mode] [options]."
+          Options: 
+           --copy-node-modules: Copy build dependencies node_modules. Use only for projects run with nodejs
+        `,
     },
     help: {
         key: 'help',
@@ -116,6 +119,7 @@ async function startBuild() {
         process.exit(1);
     }
 
+    // Set environment variables
     process.env.NODE_ENV = 'production';
     process.env.CONFIG_TYPE = mode;
 
@@ -123,14 +127,19 @@ async function startBuild() {
     const webpackConfig = getWebpackConfig();
 
     const compiler = webpack(webpackConfig);
-    console.log(webpackConfig);
+
+    const outputBuildDir = webpackConfig.output.path;
+    // const outputFileName = webpackConfig.output.filename;
+
+    console.log(`Start build project to dir ${outputBuildDir}...`);
 
     compiler.run((err, stats) => {
-        console.log(stats.compilation.startTime);
-        console.log(stats.compilation.endTime);
-
         if (err) {
             console.log(err);
+        } else {
+            console.log(
+                `Build time: ${stats.compilation.endTime - stats.compilation.startTime}sec`
+            );
         }
 
         compiler.close((closeErr) => {
@@ -139,4 +148,10 @@ async function startBuild() {
             }
         });
     });
+
+    const hasCopyNodeModulesFlag = myArgs.find((entry) => entry === '--copy-node-modules');
+
+    if (hasCopyNodeModulesFlag) {
+        console.log(`Run copy node_modules to ${outputBuildDir}`);
+    }
 }
