@@ -3,9 +3,15 @@ const path = require('path');
 
 const args = process.argv.slice(2);
 const projectDir = args[0];
+const dstDir = args[1];
 
 if (!projectDir) {
     console.error('Please provide project directory');
+    process.exit(1);
+}
+
+if (!dstDir) {
+    console.error('Please provide destination directory');
     process.exit(1);
 }
 
@@ -13,8 +19,6 @@ console.log(`Copy dependencies for server. Project direcory ${projectDir}`);
 
 // Copy dependencies
 const srcDir = [path.resolve(projectDir, `./`)];
-const dstDir = './build/server/';
-
 const dirs = [...srcDir];
 
 const copyDir = () => {

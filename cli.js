@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 const path = require('path');
+const webpack = require('webpack');
 const myArgs = process.argv.slice(2);
 
 const PROJECT_DIR = process.cwd();
 const INIT_DIR = path.resolve(__dirname, `./config/init`);
 const { promises: Fs, constants } = require('fs');
+const webpackConfigFile = `${PROJECT_DIR}/webpack.config.js`;
 
 async function exists(path) {
     try {
@@ -23,11 +25,11 @@ const COMMANDS = {
     },
     build: {
         key: 'build',
-        description: 'Build project',
+        description: 'Build project with specific mode. Use "build [mode] [options]"',
     },
     help: {
         key: 'help',
-        description: 'Print help inpormation',
+        description: 'Print help information',
     },
 };
 
@@ -38,13 +40,15 @@ switch (myArgs[0]) {
     case COMMANDS.help.key:
         printHelp();
         break;
+    case COMMANDS.build.key:
+        startBuild();
+        break;
     default:
         console.log('Unknown command.');
         printHelp();
 }
 
 async function tryCopyInitFiles() {
-    const webpackConfigFile = `${PROJECT_DIR}/webpack.config.js`;
     const isInited = await exists(webpackConfigFile);
 
     if (!isInited) {
@@ -95,4 +99,37 @@ function printHelp() {
 Please use these commands:
 ${commandsList.join(`\n`)}
 `);
+}
+
+async function startBuild() {
+    const mode = myArgs[1];
+
+    if (!mode) {
+        console.error('Please specify build mode');
+        process.exit(1);
+    }
+
+    const isWebpackConfigExist = await exists(webpackConfigFile);
+
+    if (!isWebpackConfigExist) {
+        console.error('Webpack config file does not exists');
+        process.exit(1);
+    }
+
+    process.env.NODE_ENV = 'production';
+    process.env.CONFIG_TYPE = mode;
+
+    const getWebpackConfig = require(webpackConfigFile);
+    const webpackConfig = getWebpackConfig();
+
+    const compiler = webpack(webpackConfig);
+
+    compiler.run((err, stats) => {
+        console.log(err);
+        console.log(stats);
+
+        compiler.close((closeErr) => {
+            console.log(closeErr);
+        });
+    });
 }

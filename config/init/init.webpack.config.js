@@ -1,10 +1,8 @@
-const path = require('path');
-
 // Add env configuration for webpack
 require('dotenv').config();
 
 // Set correct current dir to resolve files
-const currentDir = path.resolve(__dirname, './');
+const currentDir = process.cwd();
 process.env.CURRENT_DIR = currentDir;
 
 const { mode, requireFile } = require('vebuildtools/config/webpack/bootstrap');
