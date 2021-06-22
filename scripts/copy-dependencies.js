@@ -23,7 +23,10 @@ const copyDir = (sourceDirs, destinationDir) => {
 
         results.forEach((entry) => {
             // eslint-disable-next-line no-console
-            console.log(`Copy package name: ${entry.name}, version: ${entry.version}`);
+            console.log(
+                '\x1b[2m%s\x1b[0m',
+                `Copy package name: ${entry.name}, version: ${entry.version}`
+            );
         });
 
         copyDir(sourceDirs, destinationDir);
