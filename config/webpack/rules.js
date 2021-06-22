@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonPaths = require('./paths');
 const dartSass = require('sass');
 const { IS_DEVELOPMENT, FILES_RULE_NAME } = require('./config');
-const { plugins, presets } = require(`${commonPaths.root}/babel.config.js`);
+const { plugins, presets } = require(`../babel/${process.env.CONFIG_TYPE}.config`);
 
 function getCssLoaders(
     isServer = false,
