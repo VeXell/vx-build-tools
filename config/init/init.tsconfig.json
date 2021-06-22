@@ -1,4 +1,6 @@
 {
     "extends": "vebuildtools/config/ts/base.tsconfig.json",
-    "compilerOptions": {}
+    "compilerOptions": {},
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }
