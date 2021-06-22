@@ -1,0 +1,45 @@
+{
+    "name": "vebuildtools",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:VeXell/tools.git"
+    },
+    "author": "vexell@gmail.com",
+    "license": "ISC",
+    "devDependencies": {},
+    "peerDependencies": {
+        "webpack": "^5.38.1",
+        "typescript": "^4.3.2",
+        "dotenv": "^10.0.0"
+    },
+    "dependencies": {
+        "clean-webpack-plugin": "^4.0.0-alpha.0",
+        "copy-node-modules": "^1.1.1",
+        "copy-webpack-plugin": "^9.0.0",
+        "dotenv": "^10.0.0",
+        "dotenv-webpack": "^7.0.3",
+        "html-webpack-plugin": "^5.3.1",
+        "mini-css-extract-plugin": "^1.6.0",
+        "node-html-parser": "^3.3.5",
+        "react-dev-utils": "^11.0.4",
+        "sass": "^1.34.1",
+        "style-ext-html-webpack-plugin": "^4.1.3",
+        "terser-webpack-plugin": "^5.1.3",
+        "typescript": "^4.3.2",
+        "webpack": "^5.40.0",
+        "webpack-bundle-analyzer": "^4.4.2",
+        "webpack-cli": "^4.7.2",
+        "webpack-dev-server": "^3.11.2",
+        "webpack-merge": "^5.8.0",
+        "webpack-node-externals": "^3.0.0"
+    },
+    "bin": {
+        "etools": "./cli.js"
+    }
+}

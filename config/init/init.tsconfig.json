@@ -1,0 +1,4 @@
+{
+    "extends": "vebuildtools/config/ts/base.tsconfig.json",
+    "compilerOptions": {}
+}
