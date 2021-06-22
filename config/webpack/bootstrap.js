@@ -13,7 +13,7 @@ if (!process.env.CONFIG_TYPE) {
 const webpackDir = path.resolve(__dirname, './');
 const mode = process.env.NODE_ENV || 'development';
 const configType = process.env.CONFIG_TYPE;
-const requireFile = `${webpackDir}/webpack.${configType}`;
+const requireFile = `${webpackDir}/webpack.${configType}.js`;
 
 try {
     fs.existsSync(requireFile);
