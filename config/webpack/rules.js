@@ -5,7 +5,7 @@ const dartSass = require('sass');
 const { IS_DEVELOPMENT, FILES_RULE_NAME } = require('./config');
 const { plugins, presets } = require(`../babel/${process.env.CONFIG_TYPE}.config`);
 
-function getCssLoaders(
+function getCssLoaders (
     isServer = false,
     { isSass = true, isModule = true },
     { IS_ISOMORPHIC_CSS }
@@ -54,7 +54,7 @@ function getCssLoaders(
     return rules;
 }
 
-function getConfig(type = 'client', appConfig = {}) {
+function getConfig (type = 'client', appConfig = {}) {
     const IS_SERVER = Boolean(type === 'server');
     const IS_CLIENT = Boolean(type === 'client');
 

@@ -57,7 +57,7 @@ async function tryCopyInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('tsconfig.json already exists. Skip copy');
+            console.log('%c tsconfig.json already exists', 'color: #bada55');
         }
 
         try {
@@ -67,7 +67,17 @@ async function tryCopyInitFiles() {
                 constants.COPYFILE_EXCL
             );
         } catch {
-            console.log('.prettierrc.js already exists. Skip copy');
+            console.log('%c .prettierrc.js already exists', 'color: #bada55');
+        }
+
+        try {
+            await Fs.copyFile(
+                `${INIT_DIR}/init.eslintrc.js`,
+                `${PROJECT_DIR}/.eslintrc.js`,
+                constants.COPYFILE_EXCL
+            );
+        } catch {
+            console.log('%c .eslintrc.js already exists', 'color: #bada55');
         }
     } else {
         console.log(

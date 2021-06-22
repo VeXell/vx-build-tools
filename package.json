@@ -4,7 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "npm run lint:es",
+        "lint:es": "eslint --cache --ext .js ./config ./scripts"
     },
     "repository": {
         "type": "git",
@@ -23,6 +25,8 @@
         "@babel/plugin-transform-runtime": "^7.14.5",
         "@babel/preset-env": "^7.14.7",
         "@babel/preset-typescript": "^7.14.5",
+        "@typescript-eslint/eslint-plugin": "^4.28.0",
+        "@typescript-eslint/parser": "^4.28.0",
         "babel-loader": "^8.2.2",
         "clean-webpack-plugin": "^4.0.0-alpha.0",
         "copy-node-modules": "^1.1.1",
@@ -30,6 +34,11 @@
         "css-loader": "^5.2.6",
         "dotenv": "^10.0.0",
         "dotenv-webpack": "^7.0.3",
+        "eslint": "^7.29.0",
+        "eslint-config-standard": "^16.0.3",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.1.0",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.3.1",
         "mini-css-extract-plugin": "^1.6.0",

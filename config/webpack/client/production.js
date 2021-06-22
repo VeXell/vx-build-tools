@@ -42,7 +42,6 @@ module.exports = (appConfig) => {
             crossOriginLoading: 'use-credentials',
         },
         optimization: {
-            //moduleIds: 'deterministic',
             minimizer: [new TerserJSPlugin()],
             splitChunks: {
                 cacheGroups,

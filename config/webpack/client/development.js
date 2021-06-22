@@ -1,6 +1,4 @@
 const webpack = require('webpack');
-const fs = require('fs');
-const path = require('path');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./base');
 const commonPaths = require('../paths');
@@ -8,7 +6,7 @@ const { getProxyConfig } = require('../helpers');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = (appConfig) => {
-    let devServerHost = 'localhost';
+    const devServerHost = 'localhost';
 
     let proxy;
 
