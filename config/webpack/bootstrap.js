@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 if (!process.env.CURRENT_DIR) {
     console.error('env.CURRENT_DIR is not defined in webpack config');
