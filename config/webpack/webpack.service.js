@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
 const { IS_DEVELOPMENT, IS_PRODUCTION } = require('./config');
@@ -44,6 +45,7 @@ module.exports = () => {
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             }),
+            new NodemonPlugin(),
         ],
         module: {
             rules,
