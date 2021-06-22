@@ -123,13 +123,20 @@ async function startBuild() {
     const webpackConfig = getWebpackConfig();
 
     const compiler = webpack(webpackConfig);
+    console.log(webpackConfig);
 
     compiler.run((err, stats) => {
-        console.log(err);
-        console.log(stats);
+        console.log(stats.compilation.startTime);
+        console.log(stats.compilation.endTime);
+
+        if (err) {
+            console.log(err);
+        }
 
         compiler.close((closeErr) => {
-            console.log(closeErr);
+            if (closeErr) {
+                console.log(closeErr);
+            }
         });
     });
 }
