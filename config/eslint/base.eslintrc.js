@@ -15,7 +15,7 @@ module.exports = {
         semi: ['error', 'always'],
         'comma-dangle': 'off',
         quotes: ['error', 'single', { allowTemplateLiterals: true }],
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'space-before-function-paren': ['error', 'never']
     },
     overrides: [
         {
