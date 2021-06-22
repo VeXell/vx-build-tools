@@ -88,7 +88,7 @@ async function actionInitFiles() {
             log('.eslintrc.js already exists', 'info');
         }
     } else {
-        console.log(
+        log(
             `Sorry, but project already inited. Please remove ${webpackConfigFile} to procced`,
             'warn'
         );
@@ -139,9 +139,9 @@ async function actionBuild() {
 
     compiler.run((err, stats) => {
         if (err) {
-            console.log(err);
+            log(err, 'error');
         } else {
-            console.log(
+            log(
                 stats.toString({
                     chunks: false,
                     colors: true,
@@ -151,7 +151,7 @@ async function actionBuild() {
 
         compiler.close((closeErr) => {
             if (closeErr) {
-                console.log(closeErr);
+                log(closeErr, 'error');
             }
         });
     });
@@ -198,10 +198,10 @@ async function actionWatch() {
         },
         (err, stats) => {
             if (err) {
-                console.log(err);
+                log(err, 'error');
             }
 
-            console.log(
+            log(
                 stats.toString({
                     chunks: false,
                     colors: true,
