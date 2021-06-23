@@ -20,7 +20,7 @@ Also you should add new few commands in your `package.json` file. For example:
 
 **Example**
 
-```
+```json
 ...
 "scripts": {
     "dev": "vxbuildtools watch service",
