@@ -17,14 +17,14 @@ module.exports = () => {
     return {
         mode: IS_DEVELOPMENT ? 'development' : 'production',
         entry: [entryPath],
-        target: 'node',
         node: {
             __dirname: false,
             __filename: false,
         },
+        externalsPresets: { node: true },
         externals: [
             nodeExternals({
-                allowlist: [/^witgames-proto/],
+                allowlist: ['witgames-proto'],
             }),
         ],
         resolve: {
