@@ -21,7 +21,7 @@
         "resolveJsonModule": true,
         "isolatedModules": false,
         "noEmit": true,
-        "esModuleInterop": true
+        "esModuleInterop": false
     },
     "include": ["./**/*"],
     "exclude": ["node_modules"]
