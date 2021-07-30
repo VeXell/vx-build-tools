@@ -22,7 +22,12 @@ module.exports = () => {
             __dirname: false,
             __filename: false,
         },
-        externals: [nodeExternals({ modulesDir: `./node_modules` })],
+        externals: [
+            nodeExternals({
+                modulesDir: `./node_modules`,
+                allowlist: ['witgames-proto'],
+            }),
+        ],
         resolve: {
             modules: [src],
             extensions: ['.ts', '.js'],
