@@ -1,5 +1,5 @@
 {
-    "name": "vxbuildtools",
+    "name": "vx-build-tools",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -52,7 +52,7 @@
         "webpack-node-externals": "^3.0.0"
     },
     "bin": {
-        "vxbuildtools": "./cli.js"
+        "vx-build-tools": "./cli.js"
     },
     "engines": {
         "node": ">=14.17"
