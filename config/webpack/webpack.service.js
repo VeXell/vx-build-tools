@@ -24,8 +24,7 @@ module.exports = () => {
         },
         externals: [
             nodeExternals({
-                modulesDir: `./node_modules`,
-                allowlist: ['witgames-proto'],
+                allowlist: [/^witgames-proto/],
             }),
         ],
         resolve: {
