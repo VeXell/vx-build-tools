@@ -1,5 +1,5 @@
 {
-    "extends": "vxbuildtools/config/ts/base.tsconfig.json",
+    "extends": "vx-build-tools/config/ts/base.tsconfig.json",
     "compilerOptions": {
         "baseUrl": "./src"
     },
