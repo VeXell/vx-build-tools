@@ -1,11 +1,11 @@
 module.exports = {
     root: true,
+    extends: [require.resolve('vx-eslint/base.eslintrc')],
     env: {
         browser: false,
         es2021: true,
         node: true,
     },
-    extends: ['standard', 'eslint:recommended', 'prettier'],
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
