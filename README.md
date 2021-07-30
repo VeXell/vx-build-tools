@@ -13,7 +13,7 @@ npm i git+ssh://git@github.com/VeXell/build-tools.git --save-dev
 Then you can init new project. This command create `eslint`, `typescript`, `prettier` and `webpack` config files.
 
 ```bash
-npx vxbuildscripts init
+npx vxbuildtools init
 ```
 
 Also you should add new few commands in your `package.json` file. For example:
