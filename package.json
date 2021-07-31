@@ -44,7 +44,7 @@
         "terser-webpack-plugin": "^5.1.3",
         "ts-loader": "^9.2.3",
         "typescript": "^4.3.2",
-        "vx-eslint": "github:VeXell/vx-eslint",
+        "vx-eslint": "https://github.com/VeXell/vx-eslint.git",
         "webpack": "^5.38.1",
         "webpack-bundle-analyzer": "^4.4.2",
         "webpack-dev-server": "^3.11.2",
