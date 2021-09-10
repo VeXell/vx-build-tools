@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonPaths = require('./paths');
 const dartSass = require('sass');
 const { IS_DEVELOPMENT, FILES_RULE_NAME } = require('./config');
-const { plugins, presets } = require(`../babel/${process.env.CONFIG_TYPE}.config`);
+const { plugins, presets } = require(`../babel/${process.env.BABEL_CONFIG_TYPE}.config`);
 
 function getCssLoaders(
     isServer = false,
@@ -41,7 +41,15 @@ function getCssLoaders(
     });
 
     // Loader for webpack to process CSS with PostCSS
-    rules.push({ loader: 'postcss-loader', options: { sourceMap: IS_DEVELOPMENT } });
+    rules.push({
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: IS_DEVELOPMENT,
+            postcssOptions: {
+                plugins: ['postcss-preset-env', 'cssnano', 'postcss-normalize'],
+            },
+        },
+    });
 
     if (isSass) {
         // Compiles Sass to CSS, using Node Sass by default
@@ -130,40 +138,52 @@ function getConfig(type = 'client', appConfig = {}) {
                 },
                 {
                     test: /\.svg$/,
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {},
-                        },
-                        {
-                            loader: 'react-svg-loader',
-                            options: {
-                                svgo: {
-                                    plugins: [
-                                        { removeTitle: false },
-                                        { cleanupIDs: false },
-                                        { cleanupAttrs: false },
-                                        { collapseGroups: false },
-                                        { mergePaths: false },
-                                        { minifyStyles: false },
-                                        { moveElemsAttrsToGroup: false },
-                                        { moveGroupAttrsToElems: false },
-                                        { removeDimensions: false },
-                                        { convertShapeToPath: false },
-                                        { collapseGroups: false },
-                                        { inlineStyles: false },
-                                        { removeStyleElement: false },
-                                        { removeHiddenElems: false },
-                                        { convertPathData: false },
-                                        { convertStyleToAttrs: false },
-                                        { convertTransform: false },
-                                        { removeViewBox: false },
-                                    ],
-                                    floatPrecision: 2,
-                                },
-                            },
-                        },
-                    ],
+                    use: !appConfig.SVG_AS_FILE
+                        ? [
+                              {
+                                  loader: 'babel-loader',
+                                  options: {},
+                              },
+                              {
+                                  loader: 'react-svg-loader',
+                                  options: {
+                                      svgo: {
+                                          plugins: [
+                                              { removeTitle: false },
+                                              { cleanupIDs: false },
+                                              { cleanupAttrs: false },
+                                              { collapseGroups: false },
+                                              { mergePaths: false },
+                                              { minifyStyles: false },
+                                              { moveElemsAttrsToGroup: false },
+                                              { moveGroupAttrsToElems: false },
+                                              { removeDimensions: false },
+                                              { convertShapeToPath: false },
+                                              { collapseGroups: false },
+                                              { inlineStyles: false },
+                                              { removeStyleElement: false },
+                                              { removeHiddenElems: false },
+                                              { convertPathData: false },
+                                              { convertStyleToAttrs: false },
+                                              { convertTransform: false },
+                                              { removeViewBox: false },
+                                          ],
+                                          floatPrecision: 2,
+                                      },
+                                  },
+                              },
+                          ]
+                        : [
+                              {
+                                  loader: 'file-loader',
+                                  options: {
+                                      name: `${FILES_RULE_NAME}.[ext]`,
+                                      context: join(commonPaths.root, 'src'),
+                                      outputPath: commonPaths.imagesFolder,
+                                      emitFile: !IS_SERVER,
+                                  },
+                              },
+                          ],
                 },
                 {
                     test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3)$/i,
