@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 const copyNodeDirs = require('./scripts/copy-dependencies');
 const myArgs = process.argv.slice(2);
 
@@ -26,6 +27,10 @@ const COMMANDS = {
         key: 'watch',
         description: 'Webpack watch src directory. Use "watch [mode]"',
     },
+    serve: {
+        key: 'serve',
+        description: 'Start webpack dev server. Use "serve [mode]"',
+    },
     help: {
         key: 'help',
         description: 'Print help information',
@@ -44,6 +49,9 @@ switch (myArgs[0]) {
         break;
     case COMMANDS.watch.key:
         actionWatch();
+        break;
+    case COMMANDS.serve.key:
+        actionServe();
         break;
     default:
         log('Unknown command', 'error');
@@ -185,6 +193,7 @@ async function actionWatch() {
 
     const getWebpackConfig = require(webpackConfigFile);
     const webpackConfig = getWebpackConfig();
+    webpackConfig.mode = process.env.NODE_ENV;
 
     const compiler = webpack(webpackConfig);
 
@@ -211,11 +220,57 @@ async function actionWatch() {
     );
 }
 
+async function actionServe() {
+    const mode = myArgs[1];
+
+    if (!mode) {
+        log('Please specify working config mode', 'error');
+        process.exit(1);
+    }
+
+    const isWebpackConfigExist = await exists(webpackConfigFile);
+
+    if (!isWebpackConfigExist) {
+        log('Webpack config file does not exists', 'error');
+        process.exit(1);
+    }
+
+    // Set environment variables
+    process.env.NODE_ENV = 'development';
+    process.env.CONFIG_TYPE = mode;
+
+    const getWebpackConfig = require(webpackConfigFile);
+    const webpackConfig = getWebpackConfig();
+    webpackConfig.mode = process.env.NODE_ENV;
+
+    const compiler = webpack(webpackConfig);
+    const port = webpackConfig.devServer.port || 9001;
+    const host = webpackConfig.devServer.host || 'localhost';
+
+    log(`Start WebpackDevServer on port ${port}...`, 'info');
+
+    const devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
+    devServer.listen(port, host, function (err) {
+        if (err) {
+            log(err, 'error');
+        }
+
+        log(`WebpackDevServer listening at ${host}:${port}`, 'info');
+    });
+
+    ['SIGINT', 'SIGTERM'].forEach(function (sig) {
+        process.on(sig, function () {
+            devServer.close();
+            process.exit();
+        });
+    });
+}
+
 // Help functions
 
-async function exists(path) {
+async function exists(checkPath) {
     try {
-        await Fs.access(path);
+        await Fs.access(checkPath);
         return true;
     } catch {
         return false;

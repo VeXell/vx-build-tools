@@ -46,6 +46,7 @@
         "typescript": "^4.3.2",
         "vx-eslint": "github:VeXell/vx-eslint",
         "webpack": "^5.38.1",
+        "webpack-assets-manifest": "^5.0.6",
         "webpack-bundle-analyzer": "^4.4.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-merge": "^5.8.0",

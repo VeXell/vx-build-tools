@@ -17,20 +17,20 @@ const mode = process.env.NODE_ENV || 'development';
 const configType = process.env.CONFIG_TYPE;
 const requireFile = `${webpackDir}/webpack.${configType}.js`;
 
-try {
-    fs.existsSync(requireFile);
-} catch (err) {
+const isConfigExists = fs.existsSync(requireFile);
+
+if (!isConfigExists) {
     // eslint-disable-next-line no-console
     console.error(`CONFIG_TYPE "${configType}" does not exists. Request file ${requireFile}`);
     process.exit(1);
 }
 
-try {
-    fs.existsSync(`${babelDir}/${configType}.config.js`);
-} catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(`Please create Babel config for "${configType}". It does not exists.`);
-    process.exit(1);
+const isBabelConfigExists = fs.existsSync(`${babelDir}/${configType}.config.js`);
+
+if (isBabelConfigExists) {
+    process.env.BABEL_CONFIG_TYPE = configType;
+} else {
+    process.env.BABEL_CONFIG_TYPE = 'default';
 }
 
 module.exports = {
