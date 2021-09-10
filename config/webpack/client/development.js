@@ -41,7 +41,7 @@ module.exports = (appConfig) => {
             const realUrl = `/${host}`;
 
             const config = getProxyConfig(target, devServerHost, {
-                pathRewrite: function (path, req) {
+                pathRewrite: function (path) {
                     return path.replace(realUrl, '');
                 },
             });

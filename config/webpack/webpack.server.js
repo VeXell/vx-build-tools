@@ -17,13 +17,7 @@ module.exports = (appConfig) => {
 
     return {
         mode: 'production',
-        entry: [
-            // Set right webpack paths
-            './src/env',
-            // Read .env file if needed
-            './server/env',
-            './server/app',
-        ],
+        entry: ['./src/server/index'],
         target: 'node',
         node: {
             __dirname: false,
