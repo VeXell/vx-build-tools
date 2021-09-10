@@ -3,16 +3,15 @@ const getSecondLevelDomain = (host) => {
 };
 
 const getProxyConfig = (target, devServerHost, options = {}) => {
-    // In this case we set cookie on second level domain
-    const cookieDomain = `.${getSecondLevelDomain(target)}`;
-    console.log(` Cookie domain ${cookieDomain}`);
-
     const config = {
         target,
         secure: false,
         changeOrigin: true,
-        cookieDomainRewrite: {
-            '*': devServerHost,
+        cookieDomainRewrite: devServerHost,
+        onProxyReq: (proxyReq) => {
+            if (proxyReq.getHeader('origin')) {
+                proxyReq.setHeader('origin', target);
+            }
         },
         onProxyRes: (proxyRes) => {
             Object.keys(proxyRes.headers).forEach((key) => {
