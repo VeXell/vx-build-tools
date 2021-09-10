@@ -4,7 +4,6 @@ const { DefinePlugin } = require('webpack');
 
 const commonPaths = require('./paths.js');
 const resolve = require('./resolve.js');
-const resolveLoader = require('./resolve-loader.js');
 const rulesConfig = require('./rules');
 
 const { IS_DEVELOPMENT, IS_PRODUCTION } = require('./config');
@@ -25,7 +24,6 @@ module.exports = (appConfig) => {
         },
         externals: [nodeExternals({ modulesDir: `${commonPaths.root}/node_modules` })],
         resolve,
-        resolveLoader,
         output: {
             path: outputPath,
             filename: 'app.js',

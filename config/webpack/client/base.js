@@ -5,7 +5,6 @@ const { DefinePlugin } = require('webpack');
 
 const commonPaths = require('../paths');
 const resolve = require('../resolve.js');
-const resolveLoader = require('../resolve-loader.js');
 const rulesConfig = require('../rules');
 const { IS_DEVELOPMENT } = require('../config');
 
@@ -52,7 +51,6 @@ module.exports = (appConfig) => {
             rules,
         },
         resolve,
-        resolveLoader,
         plugins,
     };
 };
