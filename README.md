@@ -23,7 +23,9 @@ Also you should add new few commands in your `package.json` file. For example:
 ```json
 ...
 "scripts": {
-    "dev": "vx-build-tools watch service",
+    "dev": "vx-build-tools watch service", // Use watch to server or service.
+    // Or
+    "dev": "vx-build-tools serve spa", // Use serve to start WebpackDevServer
     "build": "npm run cleanBuild && npm run build:server",
     "build:server": "vx-build-tools build service --copy-node-modules",
     "cleanBuild": "rm -rf ./build/*",
@@ -38,9 +40,10 @@ Also you should add new few commands in your `package.json` file. For example:
 
 `vx-build-tools` supports 3 different types of apps:
 
--   `client` - if you want to build SPA application on react
--   `server` - if you want to build SSR server to render react application
--   `service` - if you want to build nodejs service or any other service without rendering anything
+-   `client` - if you want to build NodeJS application with react
+-   `server` - if you want to build NodeJS SSR application
+-   `service` - if you want to build NodeJS service or any other service without render
+-   `spa` - if you want to build SPA application with react
 
 Every type of the apps has own configured webpack config. For more information you can run help command `npx vx-build-tools help`
 
