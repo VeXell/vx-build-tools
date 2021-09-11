@@ -42,7 +42,7 @@ module.exports = (appConfig) => {
 
     return {
         entry: {
-            app: [commonPaths.entryPath],
+            app: [commonPaths.clientEntryPath],
         },
         output: {
             publicPath: '/',

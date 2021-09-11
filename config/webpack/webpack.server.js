@@ -16,7 +16,7 @@ module.exports = (appConfig) => {
 
     return {
         mode: 'production',
-        entry: ['./src/server/index'],
+        entry: [commonPaths.serverEntryPath],
         target: 'node',
         node: {
             __dirname: false,
