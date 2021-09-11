@@ -35,7 +35,7 @@ module.exports = (appConfig) => {
         devtool: false,
         mode: 'production',
         output: {
-            path: commonPaths.buildDir,
+            path: commonPaths.buildClient,
             publicPath: '/',
             filename: bundleName,
             chunkFilename: bundleName,
