@@ -18,7 +18,7 @@ const appConfig = require(`${projectDir}/app.config`);
 const commonPaths = webpackConfig.getPaths();
 
 const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === 'development';
-const HTML_FILE_NAME = appConfig.HTML_FILE_NAME || 'index.html';
+const HTML_FILE_NAME = 'index.html';
 const TEMPLATE_DATA_FILE_NAME = appConfig.TEMPLATE_DATA_FILE_NAME || 'template-data.json';
 
 const indexFile = `${commonPaths.buildClient}/${HTML_FILE_NAME}`;

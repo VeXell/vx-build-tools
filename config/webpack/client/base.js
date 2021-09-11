@@ -18,7 +18,7 @@ module.exports = (appConfig) => {
         new HtmlWebpackPlugin({
             inject: true,
             template: commonPaths.templatePath,
-            filename: appConfig.HTML_FILE_NAME,
+            filename: 'index.html',
             minify: {
                 removeComments: false, // We use comments to replace variables
                 collapseWhitespace: true,
