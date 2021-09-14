@@ -45,7 +45,6 @@ function getCssLoaders(
         loader: 'postcss-loader',
         options: {
             sourceMap: IS_DEVELOPMENT,
-            ident: 'postcss',
             postcssOptions: {
                 plugins: ['postcss-preset-env', 'cssnano', 'postcss-normalize'],
             },
