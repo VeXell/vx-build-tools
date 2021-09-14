@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
 const commonPaths = require('./paths.js');
@@ -22,7 +23,7 @@ module.exports = (appConfig) => {
             __dirname: false,
             __filename: false,
         },
-        externals: [nodeExternals({ modulesDir: `${commonPaths.root}/node_modules` })],
+        externals: [nodeExternals()],
         resolve,
         output: {
             path: outputPath,
@@ -43,6 +44,7 @@ module.exports = (appConfig) => {
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             }),
+            new NodemonPlugin(),
         ],
         module: {
             rules,
