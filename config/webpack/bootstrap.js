@@ -16,6 +16,7 @@ const babelDir = path.resolve(__dirname, '../babel');
 const mode = process.env.NODE_ENV || 'development';
 const configType = process.env.CONFIG_TYPE;
 const requireFile = `${webpackDir}/webpack.${configType}.js`;
+const appConfigFile = path.join(process.env.CURRENT_DIR, 'app.config.js');
 
 const isConfigExists = fs.existsSync(requireFile);
 
@@ -33,9 +34,16 @@ if (isBabelConfigExists) {
     process.env.BABEL_CONFIG_TYPE = 'default';
 }
 
+let appConfig = {};
+
+try {
+    appConfig = require(appConfigFile);
+} catch (error) {}
+
 module.exports = {
     mode,
     requireFile,
     configType,
     webpackDir,
+    appConfig,
 };

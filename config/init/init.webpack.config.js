@@ -5,11 +5,11 @@ require('dotenv').config();
 const currentDir = process.cwd();
 process.env.CURRENT_DIR = currentDir;
 
-const { mode, requireFile } = require('vx-build-tools/config/webpack/bootstrap');
+const { mode, requireFile, appConfig } = require('vx-build-tools/config/webpack/bootstrap');
 
 const webpack = () => {
     console.log(`👉 Running project in "${mode}" mode using ${requireFile} 🛠️`);
-    const config = require(requireFile)();
+    const config = require(requireFile)(appConfig);
 
     config.context = currentDir;
     return config;
