@@ -14,7 +14,7 @@ function getCssLoaders(
 
     if (IS_ISOMORPHIC_CSS) {
         // With isomorphic we keep CSS rules with JS bundles
-        rules.push('isomorphic-style-loader-forked');
+        rules.push('isomorphic-style-loader');
     } else {
         // Separate CSS to files
         if (!isServer) {
