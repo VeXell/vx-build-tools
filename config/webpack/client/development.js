@@ -6,7 +6,7 @@ const { getProxyConfig } = require('../helpers');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = (appConfig) => {
-    const devServerHost = 'localhost';
+    const devServerHost = appConfig.DEV_SERVER_HOST || 'localhost';
 
     let proxy;
 
