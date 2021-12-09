@@ -16,7 +16,6 @@
     "resolutions": {
         "sanitize.css": "12.0.1"
     },
-    "devDependencies": {},
     "peerDependencies": {
         "dotenv": "^10.0.0",
         "typescript": "^4.3.2",
@@ -46,6 +45,7 @@
         "postcss-normalize": "^10.0.0",
         "postcss-preset-env": "^6.7.0",
         "react-dev-utils": "^11.0.4",
+        "react-svg-loader": "^3.0.3",
         "sanitize.css": "^12.0.1",
         "sass": "^1.34.1",
         "sass-loader": "^12.1.0",
