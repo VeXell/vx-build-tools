@@ -12,7 +12,7 @@ const isAnalyze = typeof process.env.BUNDLE_ANALYZE !== 'undefined';
 const plugins = [
     new PreloadWebpackPlugin({
         rel: 'preload',
-        include: ['main'],
+        include: 'initial',
         fileBlacklist: [/\.map/, /\.png/, /\.jpg/, /\.svg/, /\.woff/, /\.woff2/],
         as(entry) {
             if (/\.css$/.test(entry)) return 'style';
