@@ -119,12 +119,12 @@ function getConfig(type = 'client', appConfig = {}) {
                 {
                     oneOf: [
                         {
-                            test: /\.scss$/,
-                            use: getCssLoaders(IS_SERVER, {}, appConfig),
-                        },
-                        {
                             test: /\.global\.scss$/,
                             use: getCssLoaders(IS_SERVER, { isModule: false }, appConfig),
+                        },
+                        {
+                            test: /\.scss$/,
+                            use: getCssLoaders(IS_SERVER, {}, appConfig),
                         },
                         {
                             test: /\.css$/,
