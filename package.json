@@ -17,8 +17,7 @@
         "sanitize.css": "12.0.1"
     },
     "peerDependencies": {
-        "dotenv": "^10.0.0",
-        "webpack": "^5.38.1"
+        "dotenv": "^10.0.0"
     },
     "dependencies": {
         "@babel/core": "^7.14.6",
@@ -54,7 +53,7 @@
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "vx-eslint": "github:VeXell/vx-eslint",
-        "webpack": "^5.38.1",
+        "webpack": "^5.73.0",
         "webpack-assets-manifest": "^5.0.6",
         "webpack-bundle-analyzer": "^4.4.2",
         "webpack-dev-server": "^3.11.2",
