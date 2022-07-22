@@ -61,7 +61,7 @@ module.exports = (appConfig) => {
             open: true,
             stats: 'errors-only',
             compress: true,
-            port: 9001,
+            port: process.env.DEV_PORT || 9001,
             host: devServerHost,
             proxy,
         },
