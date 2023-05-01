@@ -13,7 +13,7 @@ const plugins = [
     new PreloadWebpackPlugin({
         rel: 'preload',
         include: 'initial',
-        fileBlacklist: [/\.map/, /\.png/, /\.jpg/, /\.svg/, /\.woff/, /\.woff2/],
+        fileBlacklist: [/\.map/, /\.png/, /\.jpg/, /\.svg/, /\.woff/, /\.woff2/, /\.webp/],
         as(entry) {
             if (/\.css$/.test(entry)) return 'style';
             return 'script';
