@@ -186,7 +186,7 @@ function getConfig(type = 'client', appConfig = {}) {
                           ],
                 },
                 {
-                    test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3|webm)$/i,
+                    test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3|webm|mp4|mov)$/i,
                     use: [
                         {
                             loader: 'file-loader',
