@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonPaths = require('./paths');
 const dartSass = require('sass');
 const { IS_DEVELOPMENT, FILES_RULE_NAME } = require('./config');
-const { plugins, presets } = require(`../babel/${process.env.BABEL_CONFIG_TYPE}.config`);
 
 function getCssLoaders(
     isServer = false,
@@ -69,31 +68,9 @@ function getConfig(type = 'client', appConfig = {}) {
     // Basic rules
     let rules = [
         {
-            test: /\.(js|jsx)$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    babelrc: false,
-                    presets,
-                    plugins,
-                    cacheCompression: false,
-                    cacheDirectory: false,
-                },
-            },
-        },
-        {
             test: /\.(ts|tsx)$/,
             exclude: /(node_modules)/,
             use: [
-                {
-                    loader: 'babel-loader',
-                    options: {
-                        babelrc: false,
-                        presets,
-                        plugins,
-                    },
-                },
                 {
                     loader: 'ts-loader',
                     options: {
@@ -139,40 +116,7 @@ function getConfig(type = 'client', appConfig = {}) {
                 {
                     test: /\.svg$/,
                     use: !appConfig.SVG_AS_FILE
-                        ? [
-                              {
-                                  loader: 'babel-loader',
-                                  options: {},
-                              },
-                              {
-                                  loader: 'react-svg-loader',
-                                  options: {
-                                      svgo: {
-                                          plugins: [
-                                              { removeTitle: false },
-                                              { cleanupIDs: false },
-                                              { cleanupAttrs: false },
-                                              { collapseGroups: false },
-                                              { mergePaths: false },
-                                              { minifyStyles: false },
-                                              { moveElemsAttrsToGroup: false },
-                                              { moveGroupAttrsToElems: false },
-                                              { removeDimensions: false },
-                                              { convertShapeToPath: false },
-                                              { collapseGroups: false },
-                                              { inlineStyles: false },
-                                              { removeStyleElement: false },
-                                              { removeHiddenElems: false },
-                                              { convertPathData: false },
-                                              { convertStyleToAttrs: false },
-                                              { convertTransform: false },
-                                              { removeViewBox: false },
-                                          ],
-                                          floatPrecision: 2,
-                                      },
-                                  },
-                              },
-                          ]
+                        ? ['@svgr/webpack']
                         : [
                               {
                                   loader: 'file-loader',
