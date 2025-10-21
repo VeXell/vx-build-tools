@@ -20,6 +20,7 @@
         "dotenv": "^10.0.0"
     },
     "dependencies": {
+        "@svgr/webpack": "^8.1.0",
         "@vue/preload-webpack-plugin": "^2.0.0",
         "clean-webpack-plugin": "^4.0.0-alpha.0",
         "copy-node-modules": "^1.1.1",
@@ -57,8 +58,5 @@
     },
     "engines": {
         "node": ">=14.17"
-    },
-    "devDependencies": {
-        "@svgr/webpack": "^8.1.0"
     }
 }
