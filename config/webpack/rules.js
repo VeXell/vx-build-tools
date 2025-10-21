@@ -161,6 +161,13 @@ function getConfig(type = 'client', appConfig = {}) {
         ];
     }
 
+    if (IS_SERVER) {
+        rules.push({
+            test: /\.html$/,
+            type: 'asset/resource',
+        });
+    }
+
     return rules;
 }
 
