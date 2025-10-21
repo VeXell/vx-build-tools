@@ -157,15 +157,12 @@ function getConfig(type = 'client', appConfig = {}) {
                         },
                     ],
                 },
+                {
+                    test: /\.html$/,
+                    type: 'html-loader',
+                },
             ],
         ];
-    }
-
-    if (IS_SERVER) {
-        rules.push({
-            test: /\.html$/,
-            type: 'asset/resource',
-        });
     }
 
     return rules;
