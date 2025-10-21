@@ -159,7 +159,7 @@ function getConfig(type = 'client', appConfig = {}) {
                 },
                 {
                     test: /\.html$/,
-                    type: 'html-loader',
+                    type: 'asset/source',
                 },
             ],
         ];
