@@ -157,12 +157,15 @@ function getConfig(type = 'client', appConfig = {}) {
                         },
                     ],
                 },
-                {
-                    test: /\.html$/,
-                    type: 'asset/source',
-                },
             ],
         ];
+    }
+
+    if (IS_SERVER) {
+        rules.push({
+            test: /\.tpl$/,
+            type: 'asset/source',
+        });
     }
 
     return rules;
