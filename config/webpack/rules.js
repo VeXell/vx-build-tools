@@ -45,7 +45,7 @@ function getCssLoaders(
         },
     });
 
-    const postCssPlugins = ['postcss-preset-env', 'cssnano', 'postcss-normalize'];
+    const postCssPlugins = ['postcss-preset-env', 'cssnano'];
 
     if (isTailwindExists) {
         postCssPlugins.unshift('@tailwindcss/postcss');
