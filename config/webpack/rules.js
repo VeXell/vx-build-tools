@@ -13,7 +13,7 @@ const isTailwindExists = fs.existsSync(TAILWIND_FILE);
 function getCssLoaders(
     isServer = false,
     { isSass = true, isModule = true },
-    { IS_ISOMORPHIC_CSS }
+    { IS_ISOMORPHIC_CSS, IS_TAILWIND_ENABLED }
 ) {
     const rules = [];
 
@@ -47,7 +47,7 @@ function getCssLoaders(
 
     const postCssPlugins = ['postcss-preset-env', 'cssnano', 'postcss-normalize'];
 
-    if (isTailwindExists) {
+    if (isTailwindExists || IS_TAILWIND_ENABLED) {
         postCssPlugins.unshift('@tailwindcss/postcss');
     }
 
