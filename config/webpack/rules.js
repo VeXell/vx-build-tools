@@ -1,8 +1,14 @@
 const { join } = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonPaths = require('./paths');
 const dartSass = require('sass');
 const { IS_DEVELOPMENT, FILES_RULE_NAME } = require('./config');
+
+const TSCONFIG_FILE = join(commonPaths.root, 'tsconfig.json');
+const TAILWIND_FILE = join(commonPaths.root, 'tailwind.config.js');
+
+const isTailwindExists = fs.existsSync(TAILWIND_FILE);
 
 function getCssLoaders(
     isServer = false,
@@ -39,13 +45,19 @@ function getCssLoaders(
         },
     });
 
+    const postCssPlugins = ['postcss-preset-env', 'cssnano', 'postcss-normalize'];
+
+    if (isTailwindExists) {
+        postCssPlugins.unshift('tailwindcss');
+    }
+
     // Loader for webpack to process CSS with PostCSS
     rules.push({
         loader: 'postcss-loader',
         options: {
             sourceMap: IS_DEVELOPMENT,
             postcssOptions: {
-                plugins: ['postcss-preset-env', 'cssnano', 'postcss-normalize'],
+                plugins: postCssPlugins,
             },
         },
     });
@@ -74,7 +86,7 @@ function getConfig(type = 'client', appConfig = {}) {
                 {
                     loader: 'ts-loader',
                     options: {
-                        configFile: join(commonPaths.root, 'tsconfig.json'),
+                        configFile: TSCONFIG_FILE,
                         // HACK: const enum is not inlined, if transpileOnly is enabled
                         // transpileOnly is true for dev environment to speed up compilation
                         // transpileOnly: IS_DEVELOPMENT,
