@@ -48,7 +48,7 @@ function getCssLoaders(
     const postCssPlugins = ['postcss-preset-env', 'cssnano', 'postcss-normalize'];
 
     if (isTailwindExists) {
-        postCssPlugins.unshift('tailwindcss');
+        postCssPlugins.unshift('@tailwindcss/postcss');
     }
 
     // Loader for webpack to process CSS with PostCSS
